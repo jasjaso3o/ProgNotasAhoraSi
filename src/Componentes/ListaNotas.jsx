@@ -1,18 +1,24 @@
 import { Nota } from './Nota';
+import { Filtrar } from './Filtrar';
 
-export function ListaNotas({ notas, cambiarEstadoNota, eliminarNota }) {
-  if (notas.length === 0) return <p>No hay notas aún.</p>;
-
+export function ListaNotas({ notas, cambiarEstadoNota, eliminarNota, setFiltroCategoria }) {
   return (
-    <ul>
-      {notas.map(nota => (
-        <Nota
-          key={nota.id}
-          nota={nota}
-          cambiarEstadoNota={cambiarEstadoNota}
-          eliminarNota={eliminarNota}
-        />
-      ))}
-    </ul>
+    <div className='ListaNotas'>
+      <Filtrar setFiltroCategoria={setFiltroCategoria} />
+      {notas.length === 0 ? (
+        <p>No hay notas aún.</p>
+      ) : (
+        <ul>
+          {notas.map(nota => (
+            <Nota
+              key={nota.id}
+              nota={nota}
+              cambiarEstadoNota={cambiarEstadoNota}
+              eliminarNota={eliminarNota}
+            />
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
