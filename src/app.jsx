@@ -5,24 +5,28 @@ import { Filtrar } from './Componentes/Filtrar'
 import './app.css'
 
 
-export function App() {
+function App() {
   const [notas, setNotas] = useState([]);
   const [filtroCategoria, setFiltroCategoria] = useState('Todas');
+  const [id, setId] = useState(0);
 
   const ordenPrioridad = { Alta: 1, Media: 2, Baja: 3 };
-  
 
   const guardarNota = (nuevaNota) => {
-    const notaConEstado = { ...nuevaNota, estado: 'Pendiente', id: crypto.randomUUID() };
+    const notaConEstado = { ...nuevaNota, estado: 'Pendiente', id: id};
     setNotas([...notas, notaConEstado]);
+    setId(id+1);
+    console.log('Nota guardada:', notaConEstado);
   };
 
   const cambiarEstadoNota = (id, nuevoEstado) => {
     setNotas(notas.map(nota =>
       nota.id === id ? { ...nota, estado: nuevoEstado } : nota
     ));
+    const notaActualizada = notas.find(nota => nota.id === id);
+    console.log('Nuevo Estado:', notaActualizada);
   };
-
+  
   const eliminarNota = (id) => {
     setNotas(notas.filter(nota => nota.id !== id));
   };
@@ -30,11 +34,11 @@ export function App() {
   const notasFiltradas = (filtroCategoria === 'Todas'
   ? notas
   : notas.filter(nota => nota.categoria === filtroCategoria)
-).slice().sort((a, b) => {
-  if (a.estado === 'Finalizado' && b.estado !== 'Finalizado') return 1;
-  if (a.estado !== 'Finalizado' && b.estado === 'Finalizado') return -1;
-  return ordenPrioridad[a.prioridad] - ordenPrioridad[b.prioridad];
-});
+  ).slice().sort((a, b) => {
+    if (a.estado === 'Finalizado' && b.estado !== 'Finalizado') return 1;
+    if (a.estado !== 'Finalizado' && b.estado === 'Finalizado') return -1;
+    return ordenPrioridad[a.prioridad] - ordenPrioridad[b.prioridad];
+  });
 
   return (
     <div className='App'>
@@ -56,3 +60,5 @@ export function App() {
 
   );
 }
+
+export default App
