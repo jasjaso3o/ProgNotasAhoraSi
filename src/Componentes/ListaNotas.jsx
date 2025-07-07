@@ -5,9 +5,8 @@ export function ListaNotas({ notas, cambiarEstadoNota, eliminarNota, setFiltroCa
   return (
     <div className='ListaNotas'>
       <Filtrar setFiltroCategoria={setFiltroCategoria} />
-      {notas.length === 0 ? (
-        <p>No hay notas aún.</p>
-      ) : (
+      {notas.length === 0 ? ( <p>No hay notas aún.</p>) : 
+      (
         <ul>
           {notas.map(nota => (
             <Nota

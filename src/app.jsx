@@ -9,9 +9,9 @@ function App() {
   const [notas, setNotas] = useState([]);
   const [filtroCategoria, setFiltroCategoria] = useState('Todas');
   const [id, setId] = useState(0);
-
   const ordenPrioridad = { Alta: 1, Media: 2, Baja: 3 };
 
+  
   const guardarNota = (nuevaNota) => {
     const notaConEstado = { ...nuevaNota, estado: 'Pendiente', id: id};
     setNotas([...notas, notaConEstado]);
@@ -23,8 +23,9 @@ function App() {
     setNotas(notas.map(nota =>
       nota.id === id ? { ...nota, estado: nuevoEstado } : nota
     ));
+
     const notaActualizada = notas.find(nota => nota.id === id);
-    console.log('Nuevo Estado:', notaActualizada);
+    console.log('Nuevo Estado:', notaActualizada);                                  
   };
   
   const eliminarNota = (id) => {
